@@ -1,0 +1,74 @@
+body {
+    background: white; 
+margin:50px ;
+
+}
+
+ .container{
+    width: 270px;
+    height: 350px;
+    background:black;
+    border-radius: 10px;
+    position: absolute;
+}
+table{
+  
+   position: relative;
+    width: 80%;
+    height: 90%;
+    top:5%;
+    left: 5%;
+
+    
+}
+
+table th{
+   width: 100%;
+   margin-top: 10px;
+}
+table th input{
+   
+    padding:5px 5px;
+    line-height: 1.8;
+    width: 94%;
+    font-size:18px;
+    height: 90%;
+    text-align:right;
+    
+}
+table td input{
+    padding:10px 15px;
+    margin:0;
+    height: 90%;
+    width: 100%;
+    font-size:14px;
+}
+.icol{
+height: 95%;
+}
+    @media(min-width:900px){
+     
+
+        .container{
+          
+        width: 400px;
+        height: 500px;
+        
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%) ;
+        }
+     table{
+         position: relative;
+         left: 10%;
+     }
+        table th input{
+            font-size:40px;
+        }
+        table td input{
+           
+            font-size:20px;
+        }
+    }

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>計算機</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-170463997-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-170463997-1');
+</script>
+<meta name="description" content="javascriptで作成した計算機です。" />
+<link rel="icon" href="../favicon.ico"  />
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <table>
+            <tbody>
+                <form action="" method="post">
+                    <tr>
+                        <th colspan="5"><input type="text" id="result"></th>
+                    </tr>
+                    <tr>
+                        <td><input type="button" value="7" onclick="edit(this)"></td>
+                        <td><input type="button" value="8" onclick="edit(this)"></td>
+                        <td><input type="button" value="9" onclick="edit(this)"></td>
+                        <td><input type="button" value="÷" onclick="calc(this)"></td>
+                        <td><input type="button" value="!" onclick="yaruki()"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="button" value="4" onclick="edit(this)"></td>
+                        <td><input type="button" value="5" onclick="edit(this)"></td>
+                        <td><input type="button" value="6" onclick="edit(this)"></td>
+                        <td><input type="button" value="×" onclick="calc(this)"></td>
+                        <td><input type="button" value="C" onclick="test()"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="button" value="1" onclick="edit(this)"></td>
+                        <td><input type="button" value="2" onclick="edit(this)"></td>
+                        <td><input type="button" value="3" onclick="edit(this)"></td>
+                        <td><input type="button" value="-" onclick="calc(this)"></td>
+                        <td rowspan="2">
+                            <input class="icol" type="button" value="=" onclick="calc(this)"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="button" value="0" onclick="edit(this)"></td>
+
+                        <td><input type="button" value="." onclick="edit(this)"></td>
+                        <td><input type="button" value="+" onclick="calc(this)"></td>
+
+                    </tr>
+                </form>
+
+            </tbody>
+        </table>
+    </div>
+    <script>
+        'use strict'
+
+        //表示する数字
+        let displynum;
+        //記憶する数字
+        let memorynum;
+        //表示した後はディスプレイ消去
+        let displyflag = 0;
+        //演算子のフラグ
+        let enzanflag = "";
+        //数字の一時保存
+        let tempnum;
+        //dom操作
+        let result = document.getElementById("result");
+
+
+        //数字を表示する関数
+        function edit(num) {
+            //一つ前が演算子なら表示を消して数字表示
+            if (displyflag == 1) {
+                result.value = '';
+            }
+            //表示した文字列に数字の文字列を追加してく
+            tempnum = result.value + num.value;
+            result.value=Number(tempnum);
+            displyflag = 0;
+        };
+
+        //計算処理
+        function calc(enzan) {
+            //一つ前が数字ならメモリに表示の数字を格納して演算子を表示
+            if (enzanflag == '') {
+                //表示の数字を格納
+                memorynum = result.value;
+                //演算子を表示
+                result.value = enzan.value;
+            }
+            //一つ前が演算子なら条件分岐でメモリと表示数字を計算する
+            if (enzanflag == '+') {
+                memorynum = Number(memorynum) + Number(result.value);
+                //イコールを押された場合は計算結果を表示させてメモリを消す
+                if (enzan.value == '=') {
+                    result.value = memorynum;
+                    memorynum = '';
+                    enzanflag = '';
+                }
+            } else if (enzanflag == '-') {
+                memorynum = Number(memorynum) - Number(result.value);
+                if (enzan.value == '=') {
+                    result.value = memorynum;
+                    memorynum = '';
+                    enzanflag = '';
+                }
+            } else if (enzanflag =='×') {
+                memorynum = Number(memorynum) * Number(result.value);
+                if (enzan.value == '=') {
+                    result.value = memorynum;
+                    memorynum = '';
+                    enzanflag = '';
+                }
+            } else if (enzanflag == '÷') {
+                memorynum = Number(memorynum) / Number(result.value);
+                if (enzan.value == '=') {
+                    result.value = memorynum;
+                    memorynum = '';
+                    enzanflag = '';
+                }
+            }
+            //演算子フラグ付け
+            enzanflag = enzan.value;
+            //次何か押したら消す
+            displyflag = 1;
+            //イコールの場合はフラグも消しておく
+            if (enzan.value == '=') {
+                enzanflag = '';
+            }
+        };
+
+        function test(){
+            memorynum = '';
+            result.value = '';
+            displyflag = 0;
+            console.log('test');
+        }
+        function yaruki() {
+            result.value = 'やる気マックス！';
+            displyflag = 1;
+        }
+
+    </script>
+
+</body>
+
+</html>
